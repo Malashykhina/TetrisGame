@@ -3,3 +3,4 @@
 *.info
 Tetris/Library/*
 Tetris/obj/Debug/*
+Tetris/Temp/*

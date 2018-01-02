@@ -11,7 +11,7 @@ public class Group : MonoBehaviour {
 			Destroy(gameObject);
 		}
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		// Move Left
@@ -86,16 +86,19 @@ public class Group : MonoBehaviour {
 
 	bool isValidGridPos() {        
 		foreach (Transform child in transform) {
-			Vector2 v = Grid.roundVec2(child.position);
+			if(child.name!=	"Pivot"){//Checking if element of group it is not pivot
 
-			// Not inside Border?
-			if (!Grid.insideBorder(v))
-				return false;
+				Vector2 v = Grid.roundVec2(child.position);
 
-			// Block in grid cell (and not part of same group)?
-			if (Grid.grid[(int)v.x, (int)v.y] != null &&
-				Grid.grid[(int)v.x, (int)v.y].parent != transform)
-				return false;
+				// Not inside Border?
+				if (!Grid.insideBorder(v))
+					return false;
+
+				// Block in grid cell (and not part of same group)?
+				if (Grid.grid[(int)v.x, (int)v.y] != null &&
+					Grid.grid[(int)v.x, (int)v.y].parent != transform)
+					return false;
+			}//
 		}
 		return true;
 	}
@@ -110,8 +113,10 @@ public class Group : MonoBehaviour {
 
 		// Add new children to grid
 		foreach (Transform child in transform) {
-			Vector2 v = Grid.roundVec2(child.position);
-			Grid.grid[(int)v.x, (int)v.y] = child;
+			if(child.name!=	"Pivot"){//Checking if element of group it is not pivot
+				Vector2 v = Grid.roundVec2(child.position);
+				Grid.grid[(int)v.x, (int)v.y] = child;
+			}//
 		}        
 	}
 }
